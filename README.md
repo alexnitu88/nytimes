@@ -1,3 +1,10 @@
+### Stack:
+MVP
+Dagger2
+RxJava2
+Retrofit
+
+
 ### Run lint:
 ```
 gradlew.bat lint
