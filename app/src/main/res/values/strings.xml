@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">nytimes</string>
+
+    <!--List-->
+    <string name="article_list_empty_list_message">No articles available.</string>
+    <string name="article_list_activity_title">Most viewed</string>
+
+    <!--Details-->
+    <string name="article_details_title">Article details</string>
+    <string name="article_details_error_message">Error loading article details</string>
+</resources>

@@ -1,0 +1,32 @@
+jacoco {
+    reportsDir = file("${rootDir}/app/build/reports/jacoco")
+}
+
+tasks.withType(Test) {
+    jacoco.destinationFile = file("${rootDir}/app/build/reports/jacoco/jacocoTest.exec")
+}
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'connectedAndroidTest', 'createDebugCoverageReport']) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+    def fileFilter = ['**/R.*', '**/R$.*', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*',
+                      '**/*$ViewInjector*.*',
+                      '**/*$ViewBinder*.*',
+                      '**/*_ViewBinding.*',
+                      '**/*_MembersInjector.class',
+                      '**/Dagger*Component*.class',
+                      '**/Dagger*Subcomponent*.class',
+                      '**/*Subcomponent$Builder.class',
+                      '**/Dagger*Component$Builder.class',
+                      '**/*_Factory.*',
+                      '**/*Module.*',
+                      '**/*Module_*Factory.class',]
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/compileDebugJavaWithJavac/classes/me/alexnitu/", excludes: fileFilter)
+    def mainSrc = fileTree(dir: "${project.projectDir}/src/main/java/", excludes: fileFilter)
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+
+    executionData = files("${rootDir}/app/build/reports/jacoco/jacocoTest.exec")
+}
